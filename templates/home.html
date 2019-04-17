@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='style.css') }}">
+    <title>todo</title>
+</head>
+<body>
+    <h1>To do list manager</h1>
+    <img src="{{ url_for('static', filename='To_Do_List.png') }}">
+    <div class="row">
+        <ul class="list-group">
+        {% for description,urgency,id in task_list %}
+            <div class="col-xs-8">
+                <li class="list-group-item">{{ description }}</li>
+            </div>
+            <div class="col-xs-3">
+                <li class="list-group-item">{{ urgency }}</li>
+            </div>
+            <div class="col-xs-1">
+                <a href="{{ url_for('delete_page',id_task=id) }}">delete</a>
+            </div>
+        {% endfor %}
+        </ul>
+    </div>
+
+    <form action="{{ url_for('addTask') }}" method="post">
+        <h3>Enter a new task</h3>
+        <input type="text" name="description">
+        <input type="text" name="urgency">
+        <input type="submit" value="Add">
+    </form>
+</body>
+</html>
